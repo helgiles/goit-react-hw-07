@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
-// import { addContact } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/contactsOps';
 import css from './ContactForm.module.css';
 
 const ContactSchema = Yup.object().shape({
@@ -30,11 +30,15 @@ export default function ContactForm() {
   const handleSubmit = (values, actions) => {
     dispatch(
       addContact({
-        id: nanoid(),
         name: values.name,
         number: values.number,
       })
-    );
+    )
+      .unwrap()
+      .then(() => {
+        console.log('addTask fulfilled');
+      })
+      .catch();
     console.log(values);
     actions.resetForm();
   };
