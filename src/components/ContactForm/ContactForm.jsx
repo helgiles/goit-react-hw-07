@@ -33,12 +33,7 @@ export default function ContactForm() {
         name: values.name,
         number: values.number,
       })
-    )
-      .unwrap()
-      .then(() => {
-        console.log('addTask fulfilled');
-      })
-      .catch();
+    );
     console.log(values);
     actions.resetForm();
   };
